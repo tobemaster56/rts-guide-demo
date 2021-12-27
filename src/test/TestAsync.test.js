@@ -1,17 +1,15 @@
 import React from 'react';
 import "@testing-library/jest-dom/extend-expect";
-import { render, cleanup, fireEvent, waitForElement } from '@testing-library/react';
+import {render, cleanup, fireEvent, waitForElement, screen} from '@testing-library/react';
 import TestAsync from '../components/TestAsync'
 
 afterEach(cleanup);
-  
-  it('increments counter after 0.5s', async () => {
-    const { getByTestId, getByText } = render(<TestAsync />); 
 
-    fireEvent.click(getByTestId('button-up'))
+it('increments counter after 0.5s', async () => {
+  render(<TestAsync/>);
 
-    const counter = await waitForElement(() => getByText('1')) 
+  fireEvent.click(screen.getByTestId('button-up'))
 
-    expect(counter).toHaveTextContent('1')
-
+  const counter = await waitForElement(() => screen.getByText('1'))
+  expect(counter).toHaveTextContent('1')
 });
